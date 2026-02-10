@@ -1,4 +1,4 @@
-const mongoose = require('mongoose') ; 
+const mongoose = require("mongoose");
 const UserSchema = new mongoose.Schema(
   {
     username: {
@@ -49,17 +49,17 @@ const user = await User.findOne({ email }).select('+password');
     },
   },
   { timestamps: true },
-); ; 
+);
 
-UserSchema.pre('save' , async (next)=>{
-    if(!this.isModified('password')){
-        next() ; 
-    }
-    const salt = await bcrypt.gensalt(10) ; 
-    this.password = await bcrypt.hash(this.password, salt); 
+UserSchema.pre("save", async (next) => {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.gensalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
 });
-UserSchema.method.matchPassword = async(enterPassword)=>{
-    return await  bcrypt.compare(enterPassword , this.password);
-}
-const User = mongoose.model('User' , UserSchema) ; 
-module.exports = User
+UserSchema.method.matchPassword = async (enterPassword) => {
+  return await bcrypt.compare(enterPassword, this.password);
+};
+const User = mongoose.model("User", UserSchema);
+module.exports = User;

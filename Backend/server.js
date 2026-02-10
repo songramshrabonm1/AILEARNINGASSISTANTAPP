@@ -9,6 +9,10 @@ const {fileURLToPath} = require('url') ;
 const ConnectDb = require('./config/db'); 
 const { errorHandler } = require('./middleware/errorHandler');
 
+
+const authRoutes = require('./routes/AuthRoutes.routes'); 
+const documentRoutes = require('./routes/DocumentRoute.route')
+
 //Es6 module directory name alternativ 
 const __filename = fileURLToPath(import.meta.url) ; 
 const __dirname = path.dirname(__filename) ; 
@@ -36,6 +40,8 @@ app.use('/uploads' ,express.static(path.join(__dirname, 'uploads'))) ;
 
 
 //routes
+app.use('api/auth',authRoutes); 
+app.use('api/documents', documentRoutes) ; 
 
 
 //404 handler
