@@ -15,7 +15,7 @@ const register = async(req,res,next)=>{
         const {email , username , password } = req.body ; 
 
         //check if user exist 
-        const userExists = await User.findOne({$or : [{email}]}); 
+        const userExists = await User.findOne({$or : [{email },{ username}]}); 
 
         if(userExists){
             res.status(400).json({
